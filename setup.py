@@ -7,5 +7,6 @@ setup(
     install_requires=[
         'flask',
         'flask_restful',
+        'requests', #For testing
     ]
 )

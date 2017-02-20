@@ -10,5 +10,23 @@ class HelloWorld(Resource):
 
 api.add_resource(HelloWorld, '/')
 
+todos = {}
+
+class TodoSimple(Resource):
+    """HTPP for my todos"""
+    def get(self, todo_id):
+        try:
+            return {todo_id: todos[todo_id]}
+        except KeywordError as e:
+            return 'Internal Error'
+
+    def put(self, todo_id):
+        todos[todo_id] = request.form['data']
+        return {todo_id: todos[todo_id]}
+
+#NB: how do we make sure these never overlap -?
+#NB: should I namespace this: 'todo/<string:todo_id>'?
+api.add_resource(TodoSimple, '/<string:todo_id>')
+
 if __name__ == '__main__':
     app.run(debug=True)
