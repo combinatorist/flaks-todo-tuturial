@@ -8,7 +8,7 @@ class HelloWorld(Resource):
     def get(self):
         return {'hello' : 'world'}
 
-api.add_resource(HelloWorld, '/')
+api.add_resource(HelloWorld, '/', '/hello')
 
 todos = {}
 
@@ -26,7 +26,7 @@ class TodoSimple(Resource):
 
 #NB: how do we make sure these never overlap -?
 #NB: should I namespace this: 'todo/<string:todo_id>'?
-api.add_resource(TodoSimple, '/<string:todo_id>')
+api.add_resource(TodoSimple, '/todo/<int:todo_id>', endpoint='todo_ep')
 
 if __name__ == '__main__':
     app.run(debug=True)
