@@ -1,5 +1,6 @@
+from collections import OrderedDict
 from flask import Flask, request
-from flask_restful import Resource, Api, reqparse
+from flask_restful import Resource, Api, reqparse, fields, marshal_with
 
 app = Flask(__name__)
 api = Api(app)
@@ -30,11 +31,29 @@ class TodoSimple(Resource):
         todos[todo_id] = args
         return {todo_id: todos[todo_id]}
 
+resource_fields = {
+    'task': fields.String,
+    'uri': fields.Url('todo_ep')
+}
+
+class TodoDao(object):
+    def __init__(self, todo_id, task):
+        self.todo_id = todo_id
+        self.task = task
+
+        #NB: This field will not be sent in the response
+        self.status = 'active'
+
+class Todo(Resource):
+    @marshal_with(resource_fields)
+    def get(self, **kwargs):
+        return TodoDao(todo_id='my todo', task='Remember the milk')
 
 
 #NB: how do we make sure these never overlap -?
 #NB: should I namespace this: 'todo/<string:todo_id>'?
-api.add_resource(TodoSimple, '/todo/<int:todo_id>', endpoint='todo_ep')
+api.add_resource(Todo, '/todo', #/<int:todo_id>'
+  endpoint='todo_ep')
 
 if __name__ == '__main__':
     app.run(debug=True)
