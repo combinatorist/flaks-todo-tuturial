@@ -4,7 +4,7 @@ Navigate to todo-api (this directory)
 setup.py will take care of the python requirements, including "flask", "flask_restful"
 
 # Testing
-`python todo_api/todo_api_tests.py`
+`python todo_api/todo_tests.py`
 
 # To run
 `python todo_api/__init__.py`
