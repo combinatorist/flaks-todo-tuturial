@@ -21,12 +21,12 @@ class TodoSimple(Resource):
     def get(self, todo_id):
         try:
             return {todo_id: todos[todo_id]}
-        except KeywordError as e:
+        except KeyError as e:
             return 'Internal Error'
 
     def put(self, todo_id):
         #NB: strict=True will return an error if request contains extra args
-        args = parser.parse_args(strict=True) 
+        args = parser.parse_args(strict=True)
         todos[todo_id] = args
         return {todo_id: todos[todo_id]}
 
