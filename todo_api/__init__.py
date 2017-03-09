@@ -41,7 +41,7 @@ class TodoDao(object):
         self.todo_id = todo_id
         self.task = task
 
-        #NB: This field will not be sent in the response
+        #NB: This field will not be sent in the response, but why?
         self.status = 'active'
 
 class Todo(Resource):
@@ -52,7 +52,10 @@ class Todo(Resource):
 
 #NB: how do we make sure these never overlap -?
 #NB: should I namespace this: 'todo/<string:todo_id>'?
-api.add_resource(Todo, '/todo', #/<int:todo_id>'
+api.add_resource(TodoSimple, '/todo/<int:todo_id>',
+  endpoint='todo_ep_simple')
+
+api.add_resource(Todo, '/todoDao',
   endpoint='todo_ep')
 
 if __name__ == '__main__':
