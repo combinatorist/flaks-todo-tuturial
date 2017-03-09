@@ -41,7 +41,8 @@ class TodoDao(object):
         self.todo_id = todo_id
         self.task = task
 
-        #NB: This field will not be sent in the response, but why?
+        #NB: This field will not be sent in the response
+        # but why? because it's not an argument of the function?
         self.status = 'active'
 
 class Todo(Resource):

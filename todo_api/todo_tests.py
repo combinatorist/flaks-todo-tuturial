@@ -16,11 +16,11 @@ class TodoAPITestCase(unittest.TestCase):
     def test_empty_todo_get(self):
         #NB: won't do this testing until later in tutorial
         # self.assertRaises(Exception,
-        rv = self.app.get('http://localhost:5000/todo/1')
+        rv = self.app.get(root_url + '/todo/1')
         # )
         #NB: this is caused by a keyword error on the server, so it doesn't respond
         #NB: my weak way of testing for no response
-        assert 'Internal Error' in rv.data 
+        assert 'Internal Error' in rv.data
 
     def test_todo_put(self):
         rv = self.app.put(root_url + 'todo/2', data=dict(
